@@ -5,13 +5,22 @@
 
 int main(int argc, char *argv[]) {
 
-	cv::Mat img_src = cv::imread("101.jpg", cv::IMREAD_COLOR);
+	if (argc < 2) {
+		std::cout << "wrong arguments number." << std::endl;
+		std::cout << "Ex: .\\SSIM 101.jpg" << std::endl;
+		return -1;
+	}
+	
+	cv::Mat img_src = cv::imread(argv[1], cv::IMREAD_COLOR);
 	cv::Mat img_grayscale;
 	cv::cvtColor(img_src, img_grayscale, cv::COLOR_BGR2GRAY);
 
+	int rows = img_src.rows;
+	int cols = img_src.cols;
+
 	cv::Mat img_resized;
-	resize(img_grayscale, img_resized, cv::Size(240, 320), CV_INTER_LINEAR);
-	resize(img_resized, img_resized, cv::Size(480, 640), CV_INTER_LINEAR);
+	resize(img_grayscale, img_resized, cv::Size(cols/2, rows/2), CV_INTER_LINEAR);
+	resize(img_resized, img_resized, cv::Size(cols, rows), CV_INTER_LINEAR);
 
 	cv::imwrite("source_image.jpg", img_grayscale);
 	cv::imwrite("resized_img.jpg", img_resized);
