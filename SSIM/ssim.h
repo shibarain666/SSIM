@@ -1,21 +1,18 @@
-#ifndef SSIM_H
-#define SSIM_H
+#ifndef SSIM_H_
+#define SSIM_H_
 
 #include <opencv2/core/mat.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
 class ImgInfo
 {
 public:
 	char id[10];
 	cv::Mat img;
-	double average;
-	double deviation;
 	ImgInfo(const char name[], cv::Mat _img);
-	void getAverage();
-	void getDeviation();
 };
 
-double getCovariance(ImgInfo &a, ImgInfo &b);
-double getSSIM(ImgInfo &a, ImgInfo &b, double c1, double c2, double cov);
+float getSSIM(cv::Mat a, cv::Mat b, int kernel_size);
 
-#endif
+#endif    /* SSIM_H_ */

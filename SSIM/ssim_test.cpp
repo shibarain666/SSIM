@@ -20,19 +20,11 @@ int main(int argc, char *argv[]) {
 
 	ImgInfo img_x("X", img_grayscale);
 	ImgInfo img_y("Y", img_resized);
-	img_x.getAverage();
-	img_x.getDeviation();
-	img_y.getAverage();
-	img_y.getDeviation();
 
-	double c1 = pow(0.01 * 255.0, 2);
-	double c2 = pow(0.03 * 255.0, 2);
-
-	double cov = getCovariance(img_x, img_y);
-	double ssim = getSSIM(img_x, img_y, c1, c2, cov);
+	float ssim = getSSIM(img_x.img, img_y.img, 11);
+	
 	std::cout << "SSIM: " << ssim << std::endl;
 
 	cv::waitKey(0);
 	return 0;
 }
-
